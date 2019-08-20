@@ -2,6 +2,7 @@ package de.waipu.exotest
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.SurfaceView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.exoplayer2.ExoPlayerFactory
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         player = ExoPlayerFactory.newSimpleInstance(applicationContext)
 
         switch_button.setOnClickListener {
+            Log.d(TAG, "switch surface of player")
             currentSurfaceViewId = if (currentSurfaceViewId == R.id.surface_view_1) {
                 R.id.surface_view_2
             } else {
@@ -37,8 +39,14 @@ class MainActivity : AppCompatActivity() {
             }
             setCurrentSurfaceViewSurface()
         }
-        clear_button.setOnClickListener { player.setVideoSurface(null) }
-        fill_button.setOnClickListener { setCurrentSurfaceViewSurface() }
+        clear_button.setOnClickListener {
+            Log.d(TAG, "clear surface of player")
+            player.setVideoSurface(null)
+        }
+        fill_button.setOnClickListener {
+            Log.d(TAG, "fill surface of player")
+            setCurrentSurfaceViewSurface()
+        }
     }
 
     override fun onStart() {
@@ -46,8 +54,6 @@ class MainActivity : AppCompatActivity() {
         setCurrentSurfaceViewSurface()
         player.playWhenReady = true
         player.prepare(videoSource)
-
-
     }
 
     private fun setCurrentSurfaceViewSurface() {
@@ -58,6 +64,10 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
         player.stop()
         player.setVideoSurface(null)
+    }
+
+    companion object {
+        const val TAG: String = "MainActivity"
     }
 
 }
