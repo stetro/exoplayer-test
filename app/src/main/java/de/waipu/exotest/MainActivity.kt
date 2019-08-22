@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.SurfaceView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         )
         videoSource = ProgressiveMediaSource.Factory(dataSourceFactory)
             .createMediaSource(Uri.parse("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"))
-        player = ExoPlayerFactory.newSimpleInstance(applicationContext)
+        player = ExoplayerFactory.createPlayer(applicationContext, workaround = true)
 
         switch_button.setOnClickListener {
             Log.d(TAG, "switch surface of player")
